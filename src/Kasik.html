@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>777 Kasino Lastdep</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .logo {
+            color: #FFD700;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .balance {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .menu {
+            margin: 20px 0;
+        }
+        .menu button {
+            background-color: #444;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .menu button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">777 Kasino Lastdep</div>
+    <div class="balance">
+        <label for="balance">Guthaben:</label>
+        <input type="number" id="balance" placeholder="0.00">
+    </div>
+    <div class="menu">
+        <button onclick="startGame('slots')">Slots</button>
+        <button onclick="startGame('road')">Road</button>
+        <button onclick="startGame('bomb')">Bomb</button>
+        <button onclick="exitGame()">Beenden</button>
+    </div>
+    <script>
+        function startGame(game) {
+            alert("Spiel gestartet: " + game);
+            // Hier könntest du eine Verbindung zu deinem Java-Backend herstellen
+        }
+
+        function exitGame() {
+            alert("Spiel beendet.");
+            // Hier könntest du eine Aktion zum Beenden ausführen
+        }
+    </script>
+</body>
+</html>
