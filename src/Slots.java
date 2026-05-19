@@ -6,9 +6,11 @@ public class Slots extends Game {
     static char b = 'B';
     static char c = 'C';
     double slotBalance;
+    boolean gameGoes = false;
 
     public Slots(double slotBalance){
         this.slotBalance = slotBalance;
+        this.gameGoes = false;
     }
 
     public static void startSlots(double startBalance){
@@ -22,7 +24,7 @@ public class Slots extends Game {
         showBalanceOptional(this.slotBalance);
         showInterface();
 
-        boolean gameGoes = true;
+        gameGoes = true;
         while (gameGoes){
             clear();
             System.out.println(colorBlue + " --- SLOTS --- " + colorDefault);
@@ -55,6 +57,7 @@ public class Slots extends Game {
 
     public void doAction(){
         Scanner scan = new Scanner(System.in);
+        System.out.print("Einsatz: ");
         Double eingabe = scan.nextDouble();
         if(eingabe == 0){
             endSlots();
@@ -93,7 +96,8 @@ public class Slots extends Game {
         }
     }
 
-    static void endSlots(){
+     private void endSlots(){
+        gameGoes = false;
             //TODO
     }
 
