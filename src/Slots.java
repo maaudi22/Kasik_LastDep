@@ -6,7 +6,9 @@ public class Slots extends Game {
     static char b = 'B';
     static char c = 'C';
     double slotBalance;
+    double gewinn = 0;
     boolean gameGoes = false;
+    boolean rundeVerloren = false;
 
     public Slots(double slotBalance){
         this.slotBalance = slotBalance;
@@ -32,7 +34,6 @@ public class Slots extends Game {
             showBalanceOptional(this.slotBalance);
             showInterface();
             doAction();
-            gameGoes = false;
         }
     }
 
@@ -42,7 +43,13 @@ public class Slots extends Game {
         System.out.println("| - | - | - |");
         System.out.println("| " + a + " | " + b + " | " + c + " |");
         System.out.println("| - | - | - |\n");
-        System.out.println(colorYellow + "Gewinn: "  + " $" + colorDefault); //TODO
+
+        if(rundeVerloren){
+            System.out.println(colorRed + "Verloren: " + colorDefault + " - " + colorRed +  gewinn + " $" + colorDefault);
+            rundeVerloren = false;
+        } else {
+            System.out.println(colorYellow + "Gewinn: "  + colorGreen +  gewinn + " $" + colorDefault);
+        }
     }
 
     @Override
@@ -58,8 +65,8 @@ public class Slots extends Game {
     public void doAction(){
         Scanner scan = new Scanner(System.in);
         System.out.print("Einsatz: ");
-        Double eingabe = scan.nextDouble();
-        if(eingabe == 0){
+        Double einsatz = scan.nextDouble();
+        if(einsatz == 0){
             endSlots();
         }
         else{
@@ -69,29 +76,30 @@ public class Slots extends Game {
 
             if(a == b && b == c){ //Wenn alle 3 sind gleich
                 if(a == '7'){
-                    this.slotBalance += eingabe * 100;
+                    this.gewinn = einsatz * 100;
                 } else if(a == 'A'){
-                    this.slotBalance += eingabe * 50;
+                    this.gewinn = einsatz * 50;
                 } else if(a == '#'){
-                    this.slotBalance += eingabe * 20;
+                    this.gewinn = einsatz * 20;
                 } else if(a == '!'){
-                    this.slotBalance += eingabe * 10;
+                    this.gewinn = einsatz * 10;
                 } else if(a == '0'){
-                    this.slotBalance += eingabe * 10;
+                    this.gewinn = einsatz * 10;
                 }
             }
             if ((a == b && a != c) || (a == c && a != b) || (b == c && b != a)){ //Wenn 2 von 3 sind gleich
                 if(a == '7' || b == '7' || c == '7'){
-                    this.slotBalance += eingabe * 10;
+                    this.gewinn = einsatz * 10;
                 } else if(a == 'A' || b == 'A' || c == 'A'){
-                    this.slotBalance += eingabe * 5;
+                    this.gewinn = einsatz * 5;
                 } else if(a == '#' || b == '#' || c == '#'){
-                    this.slotBalance += eingabe * 1.5;
+                    this.gewinn = einsatz * 1.5;
                 }
 
             }
-            else { //Wenn alle 3 unterschiedlich sind
-                this.slotBalance -= eingabe;
+            else { //Wenn alle 3 unterschiedlich sind - Verlust
+                this.slotBalance -= einsatz;
+
             }
         }
     }
