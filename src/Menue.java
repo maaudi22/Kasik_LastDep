@@ -21,7 +21,7 @@ public class Menue {
         }
     }
 
-    static double EnterBalcance(){
+    static double EnterBalance(){
         double temp_balance = 0.0;
         Scanner scan = new Scanner(System.in);
         Helper.clear();
