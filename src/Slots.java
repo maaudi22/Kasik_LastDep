@@ -29,7 +29,12 @@ public class Slots extends Game {
         gameGoes = true;
         while (gameGoes){
             clear();
-            System.out.println(colorBlue + " --- SLOTS --- " + colorDefault);
+            System.out.println(colorBlue +
+                    "  ____  _      ___ _____ ____  \n" +
+                    " / ___|| |    / _ \\_   _/ ___| \n" +
+                    " \\___ \\| |   | | | || | \\___ \\ \n" +
+                    "  ___) | |___| |_| || |  ___) |\n" +
+                    " |____/|_____|\\___/ |_| |____/" + colorDefault);
 
             showBalanceOptional(this.slotBalance);
             showInterface();
@@ -45,7 +50,7 @@ public class Slots extends Game {
         System.out.println("| - | - | - |\n");
 
         if(rundeVerloren){
-            System.out.println(colorRed + "Verloren: " + colorDefault + " - " + colorRed +  gewinn + " $" + colorDefault);
+            System.out.println(colorRed + "Verloren! " + colorDefault);
             rundeVerloren = false;
         } else {
             System.out.println(colorYellow + "Gewinn: "  + colorGreen +  gewinn + " $" + colorDefault);
@@ -74,39 +79,89 @@ public class Slots extends Game {
             b = generateRandomNumber();
             c = generateRandomNumber();
 
-            if(a == b && b == c){ //Wenn alle 3 sind gleich
-                if(a == '7'){
-                    this.gewinn = einsatz * 100;
-                } else if(a == 'A'){
-                    this.gewinn = einsatz * 50;
-                } else if(a == '#'){
-                    this.gewinn = einsatz * 20;
-                } else if(a == '!'){
-                    this.gewinn = einsatz * 10;
-                } else if(a == '0'){
-                    this.gewinn = einsatz * 10;
-                }
-            }
-            if ((a == b && a != c) || (a == c && a != b) || (b == c && b != a)){ //Wenn 2 von 3 sind gleich
-                if(a == '7' || b == '7' || c == '7'){
-                    this.gewinn = einsatz * 10;
-                } else if(a == 'A' || b == 'A' || c == 'A'){
-                    this.gewinn = einsatz * 5;
-                } else if(a == '#' || b == '#' || c == '#'){
-                    this.gewinn = einsatz * 1.5;
-                }
+            rundeVerloren = berechneGewinn_verloren(einsatz, a, b, c);
 
+            if(rundeVerloren){
+                this.slotBalance -= einsatz;
             }
             else { //Wenn alle 3 unterschiedlich sind - Verlust
-                this.slotBalance -= einsatz;
+                this.slotBalance += this.gewinn;
 
             }
         }
     }
 
+    /** Berechnet den Gewinn basierend auf den Einsätzen und den Symbolen
+     * Gibt true zurück, wenn der Spieler verloren hat, andernfalls false
+     * @param einsatz Der Einsatzbetrag
+     * @param a Symbol 1
+     * @param b Symbol 2
+     * @param c Symbol 3
+     * @return true falls verloren sonst false
+     */
+    public boolean berechneGewinn_verloren(double einsatz, char a, char b, char c) { //this.gewinn = einsatz * ...
+        if(a == b && a == c) //3 gleiche
+        {
+            if(a=='7')
+            {
+                this.gewinn = einsatz * 100;
+            }
+            if(a=='A')
+            {
+                this.gewinn = einsatz * 50;
+            }
+            if(a=='#')
+            {
+                this.gewinn = einsatz * 20;
+            }
+            if(a=='!')
+            {
+                this.gewinn = einsatz * 10;
+            }
+            if(a=='O')
+            {
+                this.gewinn = einsatz * 10;
+            }
+        }//       77-                     7-7
+        else if ((a == b && a != c) || (a == c && a != b)) {
+            if(a=='7') {
+                this.gewinn = einsatz * 10;
+            }
+            if(a=='A') {
+                this.gewinn = einsatz * 5;
+            }
+            if(a=='#') {
+                this.gewinn = einsatz * 1.5;
+            }
+            else {
+                this.gewinn = 0;
+                return true;
+            }// -77
+        } else if ((b == c && b != a)) {
+            if(b=='7') {
+                this.gewinn = einsatz * 10;
+            }
+            if(b=='A') {
+                this.gewinn = einsatz * 5;
+            }
+            if(b=='#') {
+                this.gewinn = einsatz * 1.5;
+            }
+            else {
+                this.gewinn = 0;
+                return true;
+            }
+        }
+        else {
+            this.gewinn = 0;
+            return true;
+        }
+        return false;
+    }
+
      private void endSlots(){
         gameGoes = false;
-            //TODO
+        return;
     }
 
     static char generateRandomNumber() {
