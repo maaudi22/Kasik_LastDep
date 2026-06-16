@@ -16,9 +16,12 @@ public class Helper {
     }
 
     static void showLogo(){
-        System.out.println(colorYellow + "777 " +
-                colorBlue + "KASINO LASTDEP" +
-                colorYellow +  " 777" + colorDefault);
+        System.out.println(colorYellow +
+                " _        _    ____ _____ ____  _____ ____  \n" +
+                        "| |      / \\  / ___|_   _|  _ \\| ____|  _ \\ \n" +
+                        "| |     / _ \\ \\___ \\ | | | | | |  _| | |_) |\n" +
+                        "| |___ / ___ \\ ___) || | | |_| | |___|  __/ \n" +
+                        "|_____/_/   \\_\\____/ |_| |____/|_____|_|    " + colorDefault);
     }
 
     public static void showBalanceOptional(double balance){
